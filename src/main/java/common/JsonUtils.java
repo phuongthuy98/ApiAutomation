@@ -105,9 +105,8 @@ public class JsonUtils {
 
     }
 
-    //đọc file json để check data
     public String readJsonFile(String jsonFileName) {
-        String resourceFolder= System.getProperty("user.dir") + "\\src\\main\\resources";
+        String resourceFolder= System.getProperty("user.dir") + "/src/main/resources";
         String requestBody="";
         String filePath = resourceFolder + jsonFileName;
         File sourceFile = new File (filePath);

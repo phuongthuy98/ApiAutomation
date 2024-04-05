@@ -13,7 +13,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
-public class CheckResponseWhenSendRequestSuccessfullyStep {
+public class CheckResponseWhenSendRequestSuccessfullySteps {
 	String url, method;
 	HttpResponse<String> response;
 	String requestBody;
@@ -32,8 +32,7 @@ public class CheckResponseWhenSendRequestSuccessfullyStep {
 		String requestBodyName = row1.get("RequestBodyName").trim();
 		JsonUtils jsonUtils = new JsonUtils();
 		requestBody = jsonUtils.readJsonFile(requestBodyName);
-
-
+		//System.out.println("requestBodyName: "+ requestBodyName);
 	}
 
 	@When("I send request with request body")
@@ -49,7 +48,7 @@ public class CheckResponseWhenSendRequestSuccessfullyStep {
 	}
 
 	@Then("I get {int}")
-	public void i_get_status_and_response(int statusCode) {
+	public void i_get_status(int statusCode) {
 		assertEquals(response.statusCode(), statusCode);
 	}
 
@@ -64,5 +63,4 @@ public class CheckResponseWhenSendRequestSuccessfullyStep {
 		assertEquals(ids.get(1),"8");
 		assertEquals(ids.get(2),"9");
 	}
-
 }

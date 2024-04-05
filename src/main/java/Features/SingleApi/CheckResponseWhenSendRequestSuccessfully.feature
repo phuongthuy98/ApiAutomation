@@ -8,7 +8,7 @@ Feature: Check response when send request successfully
       | URL                             | Method |
       | https://reqres.in/api/unknown/2 | GET    |
     When I send request
-    Then I get <statusCode> and response
+    Then I get <statusCode>
 
     Examples:
       | statusCode |

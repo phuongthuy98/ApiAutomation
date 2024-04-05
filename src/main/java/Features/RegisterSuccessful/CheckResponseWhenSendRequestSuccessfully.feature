@@ -1,11 +1,19 @@
 #Author: Phuong Thuy
-@ListUsersApi
+
+@RegisterSuccessfulApi
 Feature: Check response when send request successfully
 
   @HappyCase
-  Scenario: Check response when send request successfully
+  Scenario Outline: Check response when send request successfully
     Given I have valid URL and method
-      | URL                             | method |
-      | https://reqres.in/api/register | POST    |
+      | URL                            | Method |
+      | https://reqres.in/api/register | POST  |
+    Given I have valid request body
+      | RequestBodyName                                        |
+      | /RegisterSuccessful/RegisterSuccessfulRequestBody.json |
     When I send request
-    Then I get status code and response
+    Then I get <statusCode>
+
+    Examples:
+      | statusCode |
+      | 200        |
