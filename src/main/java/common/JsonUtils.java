@@ -50,7 +50,7 @@ public class JsonUtils {
             for (int i = 0; i < jsonArrayObj.size(); i++) {
 
                 JSONObject jsonObject1 = (JSONObject) jsonArrayObj.get(i);
-                String value= jsonObject1.get(key).toString();
+                String value = jsonObject1.get(key).toString();
                 valueList.add(value);
             }
         } catch (Exception e) {
@@ -75,13 +75,46 @@ public class JsonUtils {
 
     }
 
+    public String readJsonFile(String jsonFileName) {
+        String resourceFolder = System.getProperty("user.dir") + "/src/main/resources";
+        String requestBody = "";
+        String filePath = resourceFolder + jsonFileName;
+        File sourceFile = new File(filePath);
+        File destinationFile = new File(resourceFolder + jsonFileName.replace(".json", "Copy.json"));
+        if (sourceFile.exists()) {
+            try {
+                copyJsonFile(sourceFile, destinationFile);
+                requestBody = new String(Files.readAllBytes(destinationFile.toPath()));
+            } catch (IOException e) {
+
+                e.printStackTrace();
+            }
+        }
+        return requestBody;
+    }
+
+
+    public String readJsonFileWithChangedValue(String jsonFileName, String fieldName, String value) {
+        String resourceFolder = System.getProperty("user.dir") + "/src/main/resources";
+        String requestBody="";
+        String filePath = resourceFolder + jsonFileName;
+        File sourceFile = new File (filePath);
+
+        File destinationFile = new File ( resourceFolder + jsonFileName.replace(".json","Copy.json"));
+        if (sourceFile.exists()) {
+            copyJsonFile(sourceFile, destinationFile);
+            requestBody = changeValueByFieldName(destinationFile,fieldName,value);
+        }
+
+        return requestBody;
+    }
+
     // Pass value by fieldName
     public String changeValueByFieldName(File file, String fieldName, String value) {
         String resultFile = null;
         String filePath = file.getAbsolutePath();
         try {
             String originalFile = new String(Files.readAllBytes(Paths.get(filePath)));
-
             JSONParser parser = new JSONParser();
             JSONObject jsonObject = (JSONObject) parser.parse(originalFile);
             if (value.equals("missing")) {
@@ -100,27 +133,8 @@ public class JsonUtils {
         } catch (Exception e) {
             System.out.println("File not found");
         }
-
         return resultFile;
-
     }
 
-    public String readJsonFile(String jsonFileName) {
-        String resourceFolder= System.getProperty("user.dir") + "/src/main/resources";
-        String requestBody="";
-        String filePath = resourceFolder + jsonFileName;
-        File sourceFile = new File (filePath);
-        File destinationFile = new File (resourceFolder +jsonFileName.replace(".json", "Copy.json"));
-        if (sourceFile.exists()) {
-            try {
-                copyJsonFile(sourceFile, destinationFile);
-                requestBody = new String(Files.readAllBytes(destinationFile.toPath()));
-            } catch (IOException e) {
-
-                e.printStackTrace();
-            }
-        }
-        return requestBody;
-    }
 
 }

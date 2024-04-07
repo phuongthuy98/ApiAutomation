@@ -17,6 +17,8 @@ public class CheckResponseWhenSendRequestSuccessfullySteps {
 	String url, method;
 	HttpResponse<String> response;
 	String requestBody;
+	JsonUtils jsonUtils = new JsonUtils();
+	String requestBodyName;
 
 	@Given("I have valid URL and method")
 	public void i_have_valid_url_and_method(List<Map<String, String>> givenTable) {
@@ -30,8 +32,6 @@ public class CheckResponseWhenSendRequestSuccessfullySteps {
 		//requestBody = "{\n" + "    \"name\": \"morpheus\",\n" + "    \"job\": \"leader\"\n" + "}";
 		Map<String, String> row1 = givenTable.get(0);
 		String requestBodyName = row1.get("RequestBodyName").trim();
-		JsonUtils jsonUtils = new JsonUtils();
-		requestBody = jsonUtils.readJsonFile(requestBodyName);
 		//System.out.println("requestBodyName: "+ requestBodyName);
 	}
 
@@ -39,6 +39,7 @@ public class CheckResponseWhenSendRequestSuccessfullySteps {
 	public void i_send_request_with_request_body() {
 		RequestUtils requestUtils = new RequestUtils();
 		response = requestUtils.sendRequest(url, method, requestBody);
+		requestBody = jsonUtils.readJsonFile(requestBodyName);
 	}
 
 	@When("I send request")
