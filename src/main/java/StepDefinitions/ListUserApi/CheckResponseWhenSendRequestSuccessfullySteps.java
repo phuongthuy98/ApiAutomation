@@ -2,6 +2,7 @@ package StepDefinitions.ListUserApi;
 
 import static org.testng.Assert.assertEquals;
 
+import java.io.File;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class CheckResponseWhenSendRequestSuccessfullySteps {
 	public void i_have_valid_request_body(List<Map<String, String>> givenTable) {
 		//requestBody = "{\n" + "    \"name\": \"morpheus\",\n" + "    \"job\": \"leader\"\n" + "}";
 		Map<String, String> row1 = givenTable.get(0);
-		String requestBodyName = row1.get("RequestBodyName").trim();
+		requestBodyName = row1.get("RequestBodyName").trim();
 		//System.out.println("requestBodyName: "+ requestBodyName);
 	}
 
